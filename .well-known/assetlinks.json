@@ -1,0 +1,13 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.taldea.mobile",
+      "sha256_cert_fingerprints": [
+        "32:D1:BA:71:60:F2:07:1D:A0:FC:F4:A4:EF:35:21:AC:82:37:55:99:8B:F5:2A:E3:97:B2:B3:EE:9B:9A:D4:D4"
+      ]
+    }
+  }
+]
+

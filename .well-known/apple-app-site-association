@@ -1,0 +1,22 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["CBV25BSG2Q.com.hwangar.taldea"],
+        "components": [
+          {
+            "/": "/join",
+            "comment": "Album join links (accessId via query param)"
+          }
+        ]
+      }
+    ]
+  },
+  "activitycontinuation": {
+    "apps": ["CBV25BSG2Q.com.hwangar.taldea"]
+  },
+  "webcredentials": {
+    "apps": ["CBV25BSG2Q.com.hwangar.taldea"]
+  }
+}
+
