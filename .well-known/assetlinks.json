@@ -1,10 +1,13 @@
-[{
-  "relation": ["delegate_permission/common.handle_all_urls"],
-  "target": {
-    "namespace": "android_app",
-    "package_name": "app.taldea.mobile",
-    "sha256_cert_fingerprints": [
-      "40:17:B6:00:E2:74:B7:E9:ED:72:19:32:D3:A4:D5:A9:D7:5D:AD:F8:DE:D5:77:99:24:31:3B:97:B3:47:45:18"
-    ]
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.taldea.mobile",
+      "sha256_cert_fingerprints": [
+        "32:D1:BA:71:60:F2:07:1D:A0:FC:F4:A4:EF:35:21:AC:82:37:55:99:8B:F5:2A:E3:97:B2:B3:EE:9B:9A:D4:D4"
+      ]
+    }
   }
-}]
+]
+
