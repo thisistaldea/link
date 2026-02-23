@@ -1,7 +1,30 @@
-<!DOCTYPE html><html lang="en" class="antialiased text-white bg-black"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Error — taldea</title><meta name="description" content="This link doesn't work."><meta property="og:url" content="https://link.taldea.app/error/"><!-- OpenGraph --><meta property="og:title" content="Error — taldea"><meta property="og:description" content="This link doesn't work."><meta property="og:type" content="website"><meta property="og:site_name" content="taldea"><!-- Twitter --><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Error — taldea"><meta name="twitter:description" content="This link doesn't work."><!-- Favicons --><!-- Favicon for most browsers --><link rel="icon" type="image/x-icon" href="/favicon/favicon.ico"><!-- PNG Favicons --><link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png"><!-- Apple Touch Icon --><link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png"><!-- Android Chrome Icons --><link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="512x512" href="/favicon/android-chrome-512x512.png"><!-- Web Manifest --><link rel="manifest" href="/favicon/site.webmanifest"><!-- Optional: Define theme colors for PWA and browser UI --><meta name="theme-color" content="#ffffff"><!-- Umami Stats --><script defer src="https://cloud.umami.is/script.js" data-website-id="c30b6be6-f20c-4679-bd31-4744d30410dc"></script><link rel="stylesheet" href="/_astro/index.BpbAWxoR.css"></head><body class="flex items-center justify-center min-h-screen px-6 bg-black"> <div class="w-full max-w-md text-center">  <h1 class="text-[clamp(2.4rem,7vw,4rem)] font-semibold">
+<!DOCTYPE html><html lang="en" class="antialiased text-white bg-black"> <head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Error — taldea</title><meta name="description" content="This link doesn't work."><meta property="og:url" content="https://link.taldea.app/error/"><!-- OpenGraph --><meta property="og:title" content="Error — taldea"><meta property="og:description" content="This link doesn't work."><meta property="og:type" content="website"><meta property="og:site_name" content="taldea"><!-- Twitter --><meta name="twitter:card" content="summary"><meta name="twitter:title" content="Error — taldea"><meta name="twitter:description" content="This link doesn't work."><!-- Favicons --><!-- Favicon for most browsers --><link rel="icon" type="image/x-icon" href="/favicon/favicon.ico"><!-- PNG Favicons --><link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png"><link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png"><!-- Apple Touch Icon --><link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png"><!-- Android Chrome Icons --><link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-chrome-192x192.png"><link rel="icon" type="image/png" sizes="512x512" href="/favicon/android-chrome-512x512.png"><!-- Web Manifest --><link rel="manifest" href="/favicon/site.webmanifest"><!-- Optional: Define theme colors for PWA and browser UI --><meta name="theme-color" content="#ffffff"><!-- Umami Stats --><script defer src="https://cloud.umami.is/script.js" data-website-id="c30b6be6-f20c-4679-bd31-4744d30410dc"></script><link rel="stylesheet" href="/_astro/index.BhOnPOpU.css"></head><body class="flex items-center justify-center min-h-screen px-6 bg-black"> <div class="w-full max-w-md text-center">  <h1 class="text-[clamp(2.4rem,7vw,4rem)] font-semibold">
 Something went wrong.
 </h1> <p class="mt-4 text-[#b3b3b3] text-sm sm:text-base tracking-wide">
 This link doesn't work anymore.
-</p> <div class="mt-10"> <a href="/" class="inline-block px-6 py-2 text-sm transition border rounded-full border-white/20 sm:text-base hover:bg-white hover:text-black">
+</p> <div class="mt-10"> <a id="error-return" href="/" class="inline-block items-center justify-center px-6 py-2.5 rounded-full border border-white/20 text-[0.9rem] font-medium bg-black/50 backdrop-blur-md cursor-pointer hover:border-[#ffd74a] transition">
 Return to taldea
-</a> </div>  </div> </body></html>
+</a> </div> <script>
+    ;(() => {
+      function track(eventName, payload = {}) {
+        try {
+          window.umami?.track?.(eventName, payload);
+        } catch (_) {}
+      }
+
+      const path = window.location.pathname;
+
+      track("link_error_view", {
+        page: "error",
+        path
+      });
+
+      const btn = document.getElementById("error-return");
+      btn?.addEventListener("click", () => {
+        track("link_error_click_return", {
+          page: "error",
+          destination: "/"
+        });
+      });
+    })();
+  </script>  </div> </body></html>
