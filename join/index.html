@@ -30,60 +30,125 @@ Get Taldea for iPhone
 Get Taldea for Android
 </a> </div> <p class="mt-6 text-[#777] text-xs italic">
 If you're on a laptop, open this same link from your phone.
-</p> </div> </div>  </div> </body></html> <script>(function(){const itunesAppId = "1671516285";
+</p> </div> </div> <script>(function(){const itunesAppId = "1671516285";
+const iosUrl = "https://apps.apple.com/tr/app/taldea/id1671516285";
+const androidUrl = "https://play.google.com/store/apps/details?id=com.taldea.mobile";
 
-  document.addEventListener('DOMContentLoaded', () => {
-    const loadingState = document.getElementById('loading-state');
-    const validState = document.getElementById('valid-state');
-    const invalidState = document.getElementById('invalid-state');
-    
-    // Get accessId from URL query params (client-side)
-    const urlParams = new URLSearchParams(window.location.search);
-    const accessId = urlParams.get('accessId') || urlParams.get('invite');
-    
-    // Hide loading state
-    loadingState?.classList.add('hidden');
-    
-    if (accessId) {
-      // Show valid state
-      validState?.classList.remove('hidden');
-      
-      const universalLinkUrl = `https://link.taldea.app/join?accessId=${accessId}`;
-      
-      // Add Apple Smart Banner dynamically
-      const metaTag = document.createElement('meta');
-      metaTag.name = 'apple-itunes-app';
-      metaTag.content = `app-id=${itunesAppId}, app-argument=${universalLinkUrl}`;
-      document.head.appendChild(metaTag);
-      
-      // Setup copy button
-      const copyBtn = document.getElementById('copy-link-btn');
-      const copyFeedback = document.getElementById('copy-feedback');
-      
-      copyBtn?.addEventListener('click', async () => {
+    ;(() => {
+      function track(eventName, payload = {}) {
         try {
-          await navigator.clipboard.writeText(universalLinkUrl);
-          copyFeedback?.classList.remove('hidden');
-          setTimeout(() => {
-            copyFeedback?.classList.add('hidden');
-          }, 2000);
-        } catch (err) {
-          // Fallback for older browsers
-          const textArea = document.createElement('textarea');
-          textArea.value = universalLinkUrl;
-          document.body.appendChild(textArea);
-          textArea.select();
-          document.execCommand('copy');
-          document.body.removeChild(textArea);
-          copyFeedback?.classList.remove('hidden');
-          setTimeout(() => {
-            copyFeedback?.classList.add('hidden');
-          }, 2000);
+          window.umami?.track?.(eventName, payload);
+        } catch (_) {}
+      }
+
+      function detectPlatform() {
+        const ua = (navigator.userAgent || "").toLowerCase();
+        const isAndroid = ua.includes("android");
+        const isIOS =
+          /iphone|ipad|ipod/.test(ua) ||
+          (ua.includes("mac") && "ontouchend" in document); // iPadOS fallback
+        if (isAndroid) return "android";
+        if (isIOS) return "ios";
+        return "other";
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const loadingState = document.getElementById("loading-state");
+        const validState = document.getElementById("valid-state");
+        const invalidState = document.getElementById("invalid-state");
+
+        const iosBtn = document.getElementById("ios-button");
+        const androidBtn = document.getElementById("android-button");
+
+        const platform = detectPlatform();
+
+        // Get accessId from URL query params (client-side)
+        const urlParams = new URLSearchParams(window.location.search);
+        const accessId = urlParams.get("accessId");
+        const invite = urlParams.get("invite");
+
+        const resolvedAccessId = accessId || invite || "";
+        const sourceParam = accessId ? "accessId" : invite ? "invite" : "none";
+
+        // Hide loading
+        loadingState?.classList.add("hidden");
+
+        // Track view + resolution
+        track("join_view", {
+          page: "join",
+          has_access_id: Boolean(resolvedAccessId),
+          source_param: sourceParam,
+          platform,
+        });
+
+        if (resolvedAccessId) {
+          validState?.classList.remove("hidden");
+
+          track("join_state_valid", {
+            page: "join",
+            source_param: sourceParam,
+            platform,
+          });
+
+          const universalLinkUrl = `https://link.taldea.app/join?accessId=${encodeURIComponent(
+            resolvedAccessId
+          )}`;
+
+          // Add Apple Smart Banner dynamically
+          const metaTag = document.createElement("meta");
+          metaTag.name = "apple-itunes-app";
+          metaTag.content = `app-id=${itunesAppId}, app-argument=${universalLinkUrl}`;
+          document.head.appendChild(metaTag);
+
+          // Track store clicks (single event, segmented by platform)
+          iosBtn?.addEventListener("click", () => {
+            track("join_click_store", {
+              page: "join",
+              platform: "ios",
+              destination: iosUrl,
+            });
+          });
+
+          androidBtn?.addEventListener("click", () => {
+            track("join_click_store", {
+              page: "join",
+              platform: "android",
+              destination: androidUrl,
+            });
+          });
+
+          // Copy invite link
+          const copyBtn = document.getElementById("copy-link-btn");
+          const copyFeedback = document.getElementById("copy-feedback");
+
+          copyBtn?.addEventListener("click", async () => {
+            track("join_copy_invite", { page: "join", platform });
+
+            try {
+              await navigator.clipboard.writeText(universalLinkUrl);
+              copyFeedback?.classList.remove("hidden");
+              setTimeout(() => copyFeedback?.classList.add("hidden"), 2000);
+            } catch (_) {
+              // Fallback for older browsers
+              const textArea = document.createElement("textarea");
+              textArea.value = universalLinkUrl;
+              document.body.appendChild(textArea);
+              textArea.select();
+              document.execCommand("copy");
+              document.body.removeChild(textArea);
+
+              copyFeedback?.classList.remove("hidden");
+              setTimeout(() => copyFeedback?.classList.add("hidden"), 2000);
+            }
+          });
+        } else {
+          invalidState?.classList.remove("hidden");
+
+          track("join_state_invalid", {
+            page: "join",
+            platform,
+          });
         }
       });
-    } else {
-      // Show invalid state
-      invalidState?.classList.remove('hidden');
-    }
-  });
-})();</script>
+    })();
+  })();</script>  </div> </body></html>
